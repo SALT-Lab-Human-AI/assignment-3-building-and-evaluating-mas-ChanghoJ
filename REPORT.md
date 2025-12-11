@@ -48,6 +48,9 @@ File judge.py work as ‘LLM-as-a-Judge’, which uses LLM to evaluate outputs b
 Document evaluator.py is more like testing file that uses judge.py as importing the LLMJudge class to provide a batch of evaluations and reports on test queries. After initializing the SystemEvaluator class, the code runs test queries in the data directory in the test_queries.json file. Then the code run a single test query, load test queries, and generate report in the outputs directory as JSON and txt format that contains statistics and analysis. The document also contains its own example evaluations with and without the orchestrator to show how the orchestrator connected with the multi-agent system.
 
 ### Results
+![Image 1](img/09_output_json1.png)
+![Image 2](img/10_output_json2.png)
+![Image 3](img/08_summary_txt.png)
 After running python main.py --mode evaluate query, output files were successfully created under the outputs directory. There are two files created, one for a detailed JSON file that reports time, success and failed run queries, statistic metrics that are defined on judge.py file, queries and responses. The evaluation summary file is the summary version of the JSON file that provides overall scores and the best and worst. CLI interface also succeed as user input, and LLM output is correctly done on CLI systemqueries.
 
 ## Discussion & Limitations
