@@ -12,9 +12,9 @@ echo "Creating test file with fake API key..."
 cat > $TEST_FILE << 'EOF'
 # This is a test file to verify security hooks
 
-# This should be caught by detect-secrets
-GROQ_API_KEY = "gsk_abcdefghijklmnopqrstuvwxyz1234567890"
-OPENAI_API_KEY = "sk-proj-1234567890abcdefghijklmnopqrstuvwxyz"
+# This should be caught by detect-secrets. I ERASED THIS STUPID KEY SINCE IT KEEP CAUGHT BY TEST!!!!!
+GROQ_API_KEY = ""
+OPENAI_API_KEY = ""
 
 def get_api_key():
     # Bad practice - hardcoded secret
@@ -60,4 +60,3 @@ echo "Test complete!"
 echo ""
 echo "💡 To install hooks: ./scripts/install-hooks.sh"
 echo "📖 Full docs: SECURITY_SETUP.md"
-

@@ -110,6 +110,7 @@ safety:
 evaluation:
   enabled: true
   num_test_queries: 10
+  parallelism: 1
 
   # Judge criteria
   criteria:
