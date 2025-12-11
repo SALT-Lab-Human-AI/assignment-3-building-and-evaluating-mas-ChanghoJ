@@ -46,6 +46,9 @@ This template provides a starting point for building a multi-agent research assi
 ├── requirements.txt         # Python dependencies
 ├── .env.example            # Environment variables template
 └── main.py                 # Main entry point
+└── GitHubCopilot_prompt_answer_list_v2.txt # Prompts and LLM responses from GitHub Copilot
+└── img/               # Example images
+└── REPORT.md                # Detailed project report
 ```
 
 ## Setup Instructions
