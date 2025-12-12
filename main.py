@@ -11,7 +11,10 @@ Usage:
 import argparse
 import asyncio
 import sys
+import os
 from pathlib import Path
+
+print("Running file:", os.path.abspath(__file__))
 
 
 def run_cli():
@@ -22,9 +25,9 @@ def run_cli():
 
 def run_web():
     """Run web interface."""
-    import subprocess
+    import subprocess  # nosec
     print("Starting Streamlit web interface...")
-    subprocess.run(["streamlit", "run", "src/ui/streamlit_app.py"])
+    subprocess.run(["streamlit", "run", "src/ui/streamlit_app.py"])  # nosec
 
 
 async def run_evaluation():
@@ -32,7 +35,8 @@ async def run_evaluation():
     import yaml
     from dotenv import load_dotenv
     from src.autogen_orchestrator import AutoGenOrchestrator
-    
+    from src.evaluation.evaluator import SystemEvaluator
+
     # Load environment variables
     load_dotenv()
 
@@ -43,36 +47,39 @@ async def run_evaluation():
     # Initialize AutoGen orchestrator
     print("Initializing AutoGen orchestrator...")
     orchestrator = AutoGenOrchestrator(config)
-    
-    # For now, run a simple test query
-    # TODO: Integrate with SystemEvaluator for full evaluation
+
+    # Initialize the evaluator
+    evaluator = SystemEvaluator(config, orchestrator)
+
+    # Run the evaluation
+    print("Running system evaluation...")
+    report = await evaluator.evaluate_system("data/example_queries.json")
+
     print("\n" + "=" * 70)
-    print("RUNNING TEST QUERY")
+    print("EVALUATION COMPLETE")
     print("=" * 70)
-    
-    test_query = "What are the key principles of accessible user interface design?"
-    print(f"\nQuery: {test_query}\n")
-    
-    result = orchestrator.process_query(test_query)
-    
-    print("\n" + "=" * 70)
-    print("RESULTS")
+
+    if report and "summary" in report:
+        summary = report["summary"]
+        scores = report["scores"]
+        print(f"\nTotal Queries: {summary.get('total_queries', 0)}")
+        print(f"Successful: {summary.get('successful', 0)}")
+        print(f"Failed: {summary.get('failed', 0)}")
+        print(f"Success Rate: {summary.get('success_rate', 0.0):.2%}\n")
+        print(f"Overall Average Score: {scores.get('overall_average', 0.0):.3f}")
+        print("\nEvaluation reports saved to 'outputs' directory.")
+    else:
+        print("Evaluation did not produce a report.")
+
     print("=" * 70)
-    print(f"\nResponse:\n{result.get('response', 'No response generated')}")
-    print(f"\nMetadata:")
-    print(f"  - Messages: {result.get('metadata', {}).get('num_messages', 0)}")
-    print(f"  - Sources: {result.get('metadata', {}).get('num_sources', 0)}")
-    
-    print("\n" + "=" * 70)
-    print("Note: Full evaluation with SystemEvaluator can be implemented")
-    print("=" * 70)
+
 
 
 def run_autogen():
     """Run AutoGen example."""
-    import subprocess
+    import subprocess  # nosec
     print("Running AutoGen example...")
-    subprocess.run([sys.executable, "example_autogen.py"])
+    subprocess.run([sys.executable, "example_autogen.py"])  # nosec
 
 
 def main():

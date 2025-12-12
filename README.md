@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/r1tAQ0HC)
 # Multi-Agent Research System - Assignment 3
 
 A multi-agent system for deep research on HCI topics, featuring orchestrated agents, safety guardrails, and LLM-as-a-Judge evaluation.
@@ -40,11 +41,14 @@ This template provides a starting point for building a multi-agent research assi
 ├── data/
 │   └── example_queries.json # Example test queries
 ├── logs/                    # Log files (created at runtime)
-├── outputs/                 # Evaluation results (created at runtime)
+├── outputs/                 # Evaluation results (created at runtime). Also includes query/queries tested
 ├── config.yaml              # System configuration
 ├── requirements.txt         # Python dependencies
 ├── .env.example            # Environment variables template
 └── main.py                 # Main entry point
+└── GitHubCopilot_prompt_answer_list_v2.txt # Prompts and LLM responses from GitHub Copilot
+└── img/               # Example images
+└── REPORT.md                # Detailed project report
 ```
 
 ## Setup Instructions
@@ -257,7 +261,7 @@ python main.py --mode web
 streamlit run src/ui/streamlit_app.py
 ```
 
-### Running Evaluation
+### Running Evaluation (This is the full end‑to‑end example with agents communicating with each other (e.g., from query → agents → final synthesis → judge scoring) and generate summary and outputs in outputs/)
 
 ```bash
 python main.py --mode evaluate
@@ -268,6 +272,38 @@ This will:
 - Run each query through your system
 - Evaluate outputs using LLM-as-a-Judge
 - Generate report in `outputs/`
+
+## Reproduce Running Command Line Interface
+- WARNING: Ensure you have the necessary API keys and dependencies installed in requirements.txt to the .env file, and follow the setup instructions above.
+
+- env. file example (copy of .env.example):
+![image01](img/01_env_example.png)
+
+- requirements.txt example:
+![image02](img/02_requirement.png)
+
+1. Activate the virtual environment:
+   - On macOS/Linux: `source .venv/bin/activate`
+   - On Windows: `.venv\Scripts\activate`
+![image03](img/03_venv_activate.png)
+
+- Activated virtual environment example:
+![image04](img/04_check_venv_active.png)
+
+2. Run the command line interface:
+   - `python main.py --mode cli`
+![image05](img/05_run_cli.png)
+
+- Command line interface example image:
+![image06](img/06_cli_interface.png)
+
+3. Query example:
+   - `What are the recent topic on HCI and LLM collaboration?`
+![image07](img/07_cli_query.png)
+
+4. Output example (Output somewhat failed due to API issues):
+   - Output located in `outputs/` directory
+![image08](img/11_cli_output.png)
 
 ## Testing
 
